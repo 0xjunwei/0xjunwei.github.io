@@ -63,7 +63,7 @@ const sendDonation = async () => {
         donationContract = await new donationInstance.eth.Contract(donation_ABI, spenderAddress);
 
         // As POC, Proposal Number is hardcoded
-        donationContract.methods.donateWithChoice(donateVal* 10**6, 1, tokenAddress)
+        donationContract.methods.donateWithChoice(donateVal* 10**6, 5, tokenAddress)
         .send({ from: account})
         .on('transactionHash', (hash) => {
             $("#txStatus").text("Transaction Hash:" + hash);
