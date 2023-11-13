@@ -1,9 +1,9 @@
 import requests
 import pandas as pd
 
-API_KEY = "5BUJZtczatTaFCxChjv6NTqz1mF3Kc0bwpLu"
+API_KEY = ""
 chain = "arbitrum"
-user_address = "0xC7fF86b58e62F217178990d5021e9998b93A9674"
+user_address = ""
 
 
 def get_claimable_rewards():
