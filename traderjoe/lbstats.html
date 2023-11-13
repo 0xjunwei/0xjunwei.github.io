@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trader Joe Rewards Checker</title>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+<h1>Trader Joe Rewards Checker</h1>
+<div>
+    <label for="apiKey">API Key:</label>
+    <input type="text" id="apiKey" name="apiKey" placeholder="Enter your API Key" />
+    <button onclick="mainFunction()">Get Vault Details</button>
+</div>
+<div id="result"></div>
+
+<script>
+const chain = "arbitrum";
+const userAddress = "0xC7fF86b58e62F217178990d5021e9998b93A9674";
+const ethUsdcApt = "0x5fb31318e9a82efcaa2cfefbacf63e85f4dff2f1";
+
+function apiGet(url, headers) {
+    return axios.get(url, { headers })
+        .then(response => response.data)
+        .catch(error => {
+            console.error("Failed to retrieve data.", error);
+            return null;
+        });
+}
+
+async function getClaimableRewards(apiKey) {
+    const market = "0x60563686ca7b668e4a2d7d31448e5f10456ecaf8";
+    const url = `https://api.traderjoexyz.dev/v1/rewards/claimable/${chain}/${userAddress}?market=${market}`;
+    const headers = { 'x-traderjoe-api-key': apiKey };
+
+    return apiGet(url, headers);
+}
+
+async function getVaults(apiKey) {
+    const url = `https://api.traderjoexyz.dev/v1/vaults/${chain}`;
+    const headers = { 'x-traderjoe-api-key': apiKey };
+
+    return apiGet(url, headers);
+}
+
+async function getVaultRewards(apiKey, vaultAddress) {
+    const url = `https://api.traderjoexyz.dev/v1/vaults/${chain}/${vaultAddress}`;
+    const headers = { 'x-traderjoe-api-key': apiKey };
+
+    const data = await apiGet(url, headers);
+    return data ? data.farm.rewarder : null;
+}
+
+async function getUserVaultPosition(apiKey, vaultAddress) {
+    const url = `https://api.traderjoexyz.dev/v1/user/${chain}/${userAddress}/farms/${vaultAddress}`;
+    const headers = { 'x-traderjoe-api-key': apiKey };
+
+    const data = await apiGet(url, headers);
+    return data ? data.userPositionUsd : null;
+}
+
+async function getVaultTvlAndFees(apiKey, vaultAddress) {
+    const url = `https://api.traderjoexyz.dev/v1/vaults/${chain}/${vaultAddress}`;
+    const headers = { 'x-traderjoe-api-key': apiKey };
+
+    const data = await apiGet(url, headers);
+    return data ? { tvlUsd: data.tvlUsd, feesUsd: data.feesUsd } : null;
+}
+
+async function mainFunction() {
+    const apiKey = document.getElementById("apiKey").value;
+    if (!apiKey) {
+        alert("Please enter the API key.");
+        return;
+    }
+    
+    const userPosition = await getUserVaultPosition(apiKey, ethUsdcApt);
+    const { tvlUsd, feesUsd } = await getVaultTvlAndFees(apiKey, ethUsdcApt) || {};
+    const rewarder = await getVaultRewards(apiKey, ethUsdcApt);
+
+    if (userPosition && tvlUsd && feesUsd && rewarder) {
+        const feesFromUser = (userPosition / tvlUsd) * feesUsd;
+        const managementFeePerDay = (userPosition * (4.5 / 100)) / 365;
+        const actualFeeEarned = feesFromUser - managementFeePerDay;
+        const arbApr = rewarder.rewarderApr1d;
+        const estArbPerDay = (userPosition * arbApr) / 365;
+
+        const resultHtml = `
+            <p>TVL: ${tvlUsd} , Fee: ${feesUsd} , User Position: ${userPosition}</p>
+            <p>Fee earned by user = ${feesFromUser}</p>
+            <p>Management fee per day: ${managementFeePerDay}</p>
+            <p>Actual Fee earned: ${actualFeeEarned}</p>
+            <p>Est ARB $ Reward per day: ${estArbPerDay}</p>
+        `;
+
+        document.getElementById("result").innerHTML = resultHtml;
+    } else {
+        document.getElementById("result").innerHTML = "<p>Failed to load data.</p>";
+    }
+}
+
+</script>
+</body>
+</html>
