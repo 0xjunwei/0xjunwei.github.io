@@ -1,0 +1,714 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Bloodhound</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(50, 48, 44, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-default_background {
+	color: rgba(50, 48, 44, 1);
+}
+.highlight-gray_background {
+	background: rgba(248, 248, 247, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(248, 243, 252, 1);
+}
+.highlight-pink_background {
+	background: rgba(252, 241, 246, 1);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(248, 248, 247, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(248, 243, 252, 1);
+}
+.block-color-pink_background {
+	background: rgba(252, 241, 246, 1);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: undefined; }
+.select-value-color-pink { background-color: rgba(225, 136, 179, 0.27); }
+.select-value-color-purple { background-color: rgba(168, 129, 197, 0.27); }
+.select-value-color-green { background-color: rgba(123, 183, 129, 0.27); }
+.select-value-color-gray { background-color: rgba(84, 72, 49, 0.15); }
+.select-value-color-transparentGray { background-color: undefined; }
+.select-value-color-translucentGray { background-color: undefined; }
+.select-value-color-orange { background-color: rgba(224, 124, 57, 0.27); }
+.select-value-color-brown { background-color: rgba(210, 162, 141, 0.35); }
+.select-value-color-red { background-color: rgba(244, 171, 159, 0.4); }
+.select-value-color-yellow { background-color: rgba(236, 191, 66, 0.39); }
+.select-value-color-blue { background-color: rgba(93, 165, 206, 0.27); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="1e6ba935-d2a1-8072-8e15-d0621100be73" class="page sans"><header><h1 class="page-title">Bloodhound</h1><p class="page-description"></p></header><div class="page-body"><p id="1e7ba935-d2a1-80fa-b1aa-c877ccb77b7a" class="">
+</p><h2 id="1e7ba935-d2a1-805d-b2fe-d8a87a624860" class="">Collection</h2><details open=""><summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0">SharpHound</summary><div class="indented"><p id="9c87e300-edbd-4181-b82a-f0aa590dd564" class="">The option <code>--collectionmethod</code> or <code>-c</code> allows us to specify what kind of data we want to collect. In the help menu above, we can see the list of collection methods. Let&#x27;s describe some of them that we haven&#x27;t covered:</p><ul id="5ef7ff91-247d-410e-8a87-0a49e7927a53" class="bulleted-list"><li style="list-style-type:disc"><code>All</code>: Performs all collection methods except <code>GPOLocalGroup</code>.</li></ul><ul id="d9f8f8e2-a8d5-4358-b395-ff437e605efa" class="bulleted-list"><li style="list-style-type:disc"><code>DCOnly</code>: Collects data only from the domain controller and will not try to get data from domain-joined Windows devices. It will collect users, computers, security groups memberships, domain trusts, abusable permissions on AD objects, OU structure, Group Policy, and the most relevant AD object properties. It will attempt to correlate Group Policy-enforced local groups to affected computers.</li></ul><ul id="6c643bf9-f52e-4b88-9d8f-aed226600e0b" class="bulleted-list"><li style="list-style-type:disc"><code>ComputerOnly</code>: This is the opposite of <code>DCOnly</code>. It will only collect information from domain-joined computers, such as user sessions and local groups.</li></ul><p id="1e7ba935-d2a1-8088-9a3b-fdef779c79c3" class="">
+</p><figure id="1e7ba935-d2a1-8021-a3c6-f615149f5d13" class="link-to-page"><a href="Bloodhound/Collect%20using%20Windows%201e7ba935d2a18021a3c6f615149f5d13.html">Collect using Windows</a></figure><figure id="1e7ba935-d2a1-807c-8c70-df2dd22aa1fe" class="link-to-page"><a href="Bloodhound/Collection%20From%20Linux%20(Preferred)%201e7ba935d2a1807c8c70df2dd22aa1fe.html">Collection From Linux (Preferred)</a></figure></div></details><p id="1e7ba935-d2a1-8083-9903-da05dc48043c" class="">
+</p><h2 id="1e7ba935-d2a1-8096-988d-d3b2f6f139a9" class="">Bloodhound GUI</h2><p id="1e7ba935-d2a1-804f-88d6-c70a6d2be4ef" class="">When we log in successfully, BloodHound will perform the query: <code>Find all Domain Admins</code> and display the users that belong to the group.</p><figure id="1e7ba935-d2a1-8047-bfe9-fd0705a585fc" class="image"><a href="Bloodhound/image.png"><img style="width:710px" src="Bloodhound/image.png"/></a></figure><p id="1e7ba935-d2a1-8081-9a39-dd963518ffd8" class="">Right clicking on a node,</p><table id="f69293a4-9654-4101-9857-04f76534551d" class="simple-table"><tbody><tr id="23ecc834-1a40-4941-9a6b-fd13f954501b"><td id="q{`}" class=""><strong>Command</strong></td><td id="tACx" class="" style="width:533px"><strong>Description</strong></td></tr><tr id="0c0b9a64-0800-44ad-9983-74ca8b55fb40"><td id="q{`}" class="">Set as Starting Node</td><td id="tACx" class="" style="width:533px">Set this node as the starting point in the pathfinding tool. Click this, and we will see this node’s name in the search bar. Then, we can select another node to target after clicking the pathfinding button.</td></tr><tr id="f219647d-f91f-4f58-906c-291bff8ed869"><td id="q{`}" class="">Set as Ending Node</td><td id="tACx" class="" style="width:533px">Set this node as the target node in the pathfinding tool.</td></tr><tr id="7686c18f-55fd-4560-886d-d184031c3545"><td id="q{`}" class="">Shortest Paths to Here</td><td id="tACx" class="" style="width:533px">This will perform a query to find all shortest paths from any arbitrary node in the database to this node. This may cause a long query time in neo4j and an even longer render time in the BloodHound GUI.</td></tr><tr id="2aeec8ae-0ee2-49b2-b0f9-6f19619cd45f"><td id="q{`}" class="">Shortest Paths to Here from Owned</td><td id="tACx" class="" style="width:533px">Find attack paths to this node from any node you have marked as owned.</td></tr><tr id="05303480-c4a8-49c2-81c6-acf51efb9d30"><td id="q{`}" class="">Edit Node</td><td id="tACx" class="" style="width:533px">This brings up the node editing modal, where you can edit current properties on the node or even add our custom properties to the node.</td></tr><tr id="3f70bdf2-4438-4cdf-9963-4b51bf840fca"><td id="q{`}" class="">Mark Group as Owned</td><td id="tACx" class="" style="width:533px">This will internally set the node as owned in the neo4j database, which you can then use in conjunction with other queries such as “Shortest paths to here from Owned”.</td></tr><tr id="0c065e8b-cc9b-4476-99f8-6e662b32cbe1"><td id="q{`}" class="">Mark/Unmark Group as High Value</td><td id="tACx" class="" style="width:533px">Some nodes are marked as “high value” by default, such as the domain admins group and enterprise admin group. We can use this with other queries, such as “shortest paths to high-value assets”.</td></tr><tr id="c2e83a98-c64d-4dfe-8d77-30d76d68b3ae"><td id="q{`}" class="">Delete Node</td><td id="tACx" class="" style="width:533px">Deletes the node from the neo4j database.</td></tr></tbody></table><details open=""><summary style="font-weight:600;font-size:1.5em;line-height:1.3;margin:0">Nodes</summary><div class="indented"><p id="e33b45ee-384a-410f-b851-a55af8b5b81a" class="">Nodes are the objects we interact with using BloodHound. These represent Active Directory and Azure objects. However, this section will only focus on Active Directory objects.</p><p id="c53127f3-19b5-4b7a-b1ad-ba1b643a5e30" class="">When we run SharpHound, it collects specific information from each node based on its type. The nodes that we will find in BloodHound according to version 4.2 are:</p><table id="b85cf196-4529-476b-8dac-40b325f35470" class="simple-table"><tbody><tr id="6d51fcff-48db-4f21-86c1-ccf9f7c7c6f4"><td id="Gp\g" class=""><strong>Node</strong></td><td id="]NIQ" class="" style="width:539px"><strong>Description</strong></td></tr><tr id="6f014f46-7a35-4395-a64d-ae8c67f41971"><td id="Gp\g" class="">Users</td><td id="]NIQ" class="" style="width:539px">Objects that represent individuals who can log in to a network and access resources. Each user has a unique username and password that allows them to authenticate and access resources such as files, folders, and printers.</td></tr><tr id="a782a52c-7f3b-4904-a306-f44de9a53a91"><td id="Gp\g" class="">Groups</td><td id="]NIQ" class="" style="width:539px">Used to organize users and computers into logical collections, which can then be used to assign permissions to resources. By assigning permissions to a group, you can easily manage access to resources for multiple users at once.</td></tr><tr id="38796caa-796f-48d5-a2db-9a6bfaec8497"><td id="Gp\g" class="">Computers</td><td id="]NIQ" class="" style="width:539px">Objects that represent the devices that connect to the network. Each computer object has a unique name and identifier that allows it to be managed and controlled within the domain.</td></tr><tr id="e23fa0d6-9ce4-481d-8907-043989e5d4db"><td id="Gp\g" class="">Domains</td><td id="]NIQ" class="" style="width:539px">A logical grouping of network resources, such as users, groups, and computers. It allows you to manage and control these resources in a centralized manner, providing a single point of administration and security.</td></tr><tr id="71f81857-94bc-4b64-a35a-030430610a94"><td id="Gp\g" class="">GPOs</td><td id="]NIQ" class="" style="width:539px">Group Policy Objects, are used to define and enforce a set of policies and settings for users and computers within an Active Directory domain. These policies can control a wide range of settings, from user permissions to network configurations.</td></tr><tr id="7765cdd1-a40c-4826-b67b-ad90a767f1f9"><td id="Gp\g" class="">OUs</td><td id="]NIQ" class="" style="width:539px">Organizational Units, are containers within a domain that allow you to group and manage resources in a more granular manner. They can contain users, groups, and computers, and can be used to delegate administrative tasks to specific individuals or groups.</td></tr><tr id="33d59eef-c325-48ff-be76-95b0292d2213"><td id="Gp\g" class="">Containers</td><td id="]NIQ" class="" style="width:539px">Containers are similar to OUs, but are used for non-administrative purposes. They can be used to group objects together for organizational purposes, but do not have the same level of administrative control as OUs.</td></tr></tbody></table><h1 id="136b019b-144a-4b82-bb0f-1d0ad2799443" class=""><strong>Nodes Elements</strong></h1><p id="39788cba-1ee7-4925-840d-e8524c4d323a" class="">The <code>Node Info</code> tab displays specific information for each node type, categorized into various areas</p><blockquote id="1e7ba935-d2a1-80d2-bc7f-f43a856be7ca" class=""><strong>Note:</strong> For the following <code>node types</code>, we will only describe the sections that are unique for each one.</blockquote><details open=""><summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0">Users</summary><div class="indented"><figure id="1e7ba935-d2a1-80ab-a8db-f1f29208714d" class="image"><a href="Bloodhound/image%201.png"><img style="width:682px" src="Bloodhound/image%201.png"/></a></figure><table id="3d986749-1963-4ca5-928b-60fb2d69a3dd" class="simple-table"><tbody><tr id="002c99de-1605-4301-8bae-bef896464b8b"><td id="lViO" class=""><strong>Category</strong></td><td id="\@pU" class="" style="width:485px"><strong>Description</strong></td></tr><tr id="74d6c70e-9208-447d-8517-eb2f16367e9f"><td id="lViO" class="">Overview</td><td id="\@pU" class="" style="width:485px">General information about the object.</td></tr><tr id="17f745eb-af88-47c3-8714-4c98ff410eaa"><td id="lViO" class="">Node Properties</td><td id="\@pU" class="" style="width:485px">This section displays default information about the node</td></tr><tr id="58d9aeef-ee46-4f30-94bb-f3d6e5bf071d"><td id="lViO" class="">Extra Properties</td><td id="\@pU" class="" style="width:485px">This section displays some other information about the node, plus all other non-default, string-type property values from Active Directory if you used the –CollectAllProperties flag.</td></tr><tr id="8b424296-15c6-4f0e-8318-093c293e24c7"><td id="lViO" class="">Group Membership</td><td id="\@pU" class="" style="width:485px">This section displays stats about Active Directory security groups the object belongs to.</td></tr><tr id="05492320-a5bd-4671-b63d-7cf444a7f50f"><td id="lViO" class="">Local Admin Rights</td><td id="\@pU" class="" style="width:485px">Displays where the object has admin rights</td></tr><tr id="9f085836-eb25-48f9-bee7-8de9f85a6d38"><td id="lViO" class="">Execution Rights</td><td id="\@pU" class="" style="width:485px">Refers to the permissions and privileges a user, group, or computer has to execute specific actions or commands on the network. This can include RDP access, DCOM execution, SQL Admin Rights, etc.</td></tr><tr id="f3308c96-64fb-46d7-8951-ab61837d8676"><td id="lViO" class="">Outbound Object Control</td><td id="\@pU" class="" style="width:485px">Visualize the permissions and privileges that a user, group, or computer has over other objects in the AD environment</td></tr><tr id="bc29c8b4-82d0-471f-973a-d92c0bbd99d2"><td id="lViO" class="">Inbound Control Rights</td><td id="\@pU" class="" style="width:485px">Visualize the permissions and privileges of other objects (users, groups, domains, etc.) over a specific AD object.</td></tr></tbody></table><figure id="1e7ba935-d2a1-803e-833b-deb49e15f41f" class="image"><a href="Bloodhound/example1.gif"><img style="width:682px" src="Bloodhound/example1.gif"/></a></figure><p id="1e7ba935-d2a1-801f-be80-ee3589939c3c" class="">Just some example</p><p id="1e7ba935-d2a1-8091-8ead-e4f81da483a6" class="">Searching which computer sarah is an Administrator of:</p><p id="1e7ba935-d2a1-801b-80e8-f0b2a13b3e68" class="">Search bar: “User:Sarah” click on her email, then go down to local admin rights, clicking first degree local admin.</p><figure id="1e7ba935-d2a1-80b5-b069-ebc694959604" class="image"><a href="Bloodhound/image%202.png"><img style="width:2198px" src="Bloodhound/image%202.png"/></a></figure></div></details><details open=""><summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0">Computers</summary><div class="indented"><figure id="1e7ba935-d2a1-805b-a1bd-e1e551aed8b8" class="image"><a href="Bloodhound/image%203.png"><img style="width:653.9921875px" src="Bloodhound/image%203.png"/></a></figure><table id="57392407-d75c-47b8-85db-7d1f8a6ac2ea" class="simple-table"><tbody><tr id="ab29faf3-6222-4dde-95b9-51f1f0121467"><td id="nr^d" class=""><strong>Category</strong></td><td id="nSdZ" class="" style="width:473px"><strong>Description</strong></td></tr><tr id="a0107475-48d7-45ba-81e8-363bebf281ad"><td id="nr^d" class="">Local Admins</td><td id="nSdZ" class="" style="width:473px">Refers to the users, groups, and computers granted local administrator privileges on the specific computer.</td></tr><tr id="e6d8ca2c-20f3-4453-acbf-dd33534cc7f0"><td id="nr^d" class="">Inbound Execution Rights</td><td id="nSdZ" class="" style="width:473px">Display all the objects (users, groups, and computers) that have been granted execution rights on the specific computer</td></tr><tr id="d4af43e2-b6f3-4fdb-b016-759a82e68f95"><td id="nr^d" class="">Outbound Execution Rights</td><td id="nSdZ" class="" style="width:473px">Refers to the rights of the specific computer to execute commands or scripts on other computers or objects in the network.</td></tr></tbody></table></div></details><details open=""><summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0">Groups</summary><div class="indented"><figure id="1e7ba935-d2a1-8007-b4bf-eb46a29c9eeb" class="image"><a href="Bloodhound/image%204.png"><img style="width:654px" src="Bloodhound/image%204.png"/></a></figure><table id="08b19d8a-6443-41a4-b60d-4d9182c0bb6b" class="simple-table"><tbody><tr id="60c6fd09-3242-4bd2-9201-9d25c3192689"><td id=";?=g" class=""><strong>Category</strong></td><td id="d|~o" class="" style="width:526px"><strong>Description</strong></td></tr><tr id="2320a717-dd16-43b9-9c02-2ef98c82b6af"><td id=";?=g" class="">Group Members</td><td id="d|~o" class="" style="width:526px">Refers to the users, groups, and computer members of the specific group.</td></tr></tbody></table></div></details><details open=""><summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0">Domains</summary><div class="indented"><figure id="1e7ba935-d2a1-808e-9392-fadc983f9061" class="image"><a href="Bloodhound/image%205.png"><img style="width:654px" src="Bloodhound/image%205.png"/></a></figure><table id="5e083b66-6c00-43a4-8c54-e22c8a6c911d" class="simple-table"><tbody><tr id="23bb7418-229e-429a-9fdc-4149ba363563"><td id="YCx@" class=""><strong>Category</strong></td><td id="~wuS" class="" style="width:537px"><strong>Description</strong></td></tr><tr id="6aa31e52-f1a3-48a5-8221-45b53c7d99af"><td id="YCx@" class="">Foreign Members</td><td id="~wuS" class="" style="width:537px">Are users or groups that belong to a different domain or forest than the one currently being analyzed</td></tr><tr id="8348299c-cace-4ff9-b60b-7e126ac79f6c"><td id="YCx@" class="">Inbound Trusts</td><td id="~wuS" class="" style="width:537px">Refers to trust relationships where another domain or forest trusts the current domain. This means that the users and groups from the trusted domain can access resources in the current domain and vice versa.</td></tr><tr id="f4fa097a-8ece-4d93-b42e-f3ea25907b12"><td id="YCx@" class="">Outbound Trusts</td><td id="~wuS" class="" style="width:537px">Refers to trust relationships where the current domain or forest trusts another domain. This means that the users and groups from the current domain can access resources in the trusted domain and vice versa.</td></tr></tbody></table><p id="1e7ba935-d2a1-80c6-ad11-eaf501eb8945" class="">In the Domain Overview section, we had an option named <code>Map OU Structure</code>. This one is helpful if we want a high-level overview of the Active Directory and how it is organized.</p><figure id="1e7ba935-d2a1-805b-997f-d79680bcbcf5"><div class="source"><a href="https://www.notion.soundefined"></a></div></figure><p id="1e7ba935-d2a1-80bf-8d1a-f0a136b34442" class="">
+</p></div></details><details open=""><summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0">Organizational Unit (OU)</summary><div class="indented"><figure id="1e7ba935-d2a1-80df-8ee7-ee7e4fa10c17" class="image"><a href="Bloodhound/image%206.png"><img style="width:653.9921875px" src="Bloodhound/image%206.png"/></a></figure><table id="52b2ba1b-e9e1-4d27-bf88-4d959b860e0b" class="simple-table"><tbody><tr id="5c500587-d337-4998-a3c9-594ada9608a8"><td id="z?JF" class=""><strong>Category</strong></td><td id="\eAW" class="" style="width:503px"><strong>Description</strong></td></tr><tr id="cc7cf6f6-f08a-40e9-a065-cc7706e8aa8a"><td id="z?JF" class="">Affecting GPOs</td><td id="\eAW" class="" style="width:503px">Refers to the group policy objects (GPOs) affecting the specific OU or container.</td></tr><tr id="b72fa9a7-2a45-4128-88f0-582bad3146a0"><td id="z?JF" class="">Descendant Objects</td><td id="\eAW" class="" style="width:503px">Refers to all objects located within a specific OU or container in the Active Directory (AD) environment.</td></tr></tbody></table><p id="1e7ba935-d2a1-8052-acc1-eb02300c1ed2" class="">
+</p></div></details><details open=""><summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0">Containers</summary><div class="indented"><figure id="1e7ba935-d2a1-805f-8f19-c53e17744d27" class="image"><a href="Bloodhound/image%207.png"><img style="width:967px" src="Bloodhound/image%207.png"/></a></figure></div></details><details open=""><summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0">Group Policy Objects (GPO)</summary><div class="indented"><figure id="1e7ba935-d2a1-80ae-8889-c9ac4c4e0ebe" class="image"><a href="Bloodhound/image%208.png"><img style="width:653.984375px" src="Bloodhound/image%208.png"/></a></figure><table id="f9e022c2-dcb5-443d-8128-5cae443635fc" class="simple-table"><tbody><tr id="b724c040-c4a0-41d9-a224-3dcf7cd0e593"><td id="_gQM" class=""><strong>Category</strong></td><td id="}yGo" class="" style="width:514px"><strong>Description</strong></td></tr><tr id="4741ab2f-7226-4c28-bd38-5fdaa708dbd4"><td id="_gQM" class="">Affected Objects</td><td id="}yGo" class="" style="width:514px">Refers to the users, groups, and computers affected by the specific group policy object (GPO) in the Active Directory (AD) environment.</td></tr></tbody></table><p id="1e7ba935-d2a1-80b6-b1a4-f20314aa14e2" class="">If we want to know which objects are affected by a GPO, we can quickly do this from here, as we can see in the following image:</p><figure id="1e7ba935-d2a1-801d-a10d-ff8877136d72"><div class="source"><a href="https://www.notion.soundefined"></a></div></figure><p id="1e7ba935-d2a1-808b-8e7a-d2ce1fdfc94f" class="">
+</p><p id="1e7ba935-d2a1-80f5-8bf0-f2eca1add885" class="">
+</p></div></details><p id="1e7ba935-d2a1-80bb-bdde-d7add385eedd" class="">
+</p></div></details><details open=""><summary style="font-weight:600;font-size:1.5em;line-height:1.3;margin:0">Edges</summary><div class="indented"><p id="1e7ba935-d2a1-80f5-b639-f40ba083bdee" class="">BloodHound uses edges to represent the relationships between objects in the Active Directory (AD) environment</p><figure id="1e7ba935-d2a1-8021-8ff0-e7fa4307f73c" class="image"><a href="Bloodhound/image%209.png"><img style="width:681.9765625px" src="Bloodhound/image%209.png"/></a></figure><blockquote id="1e7ba935-d2a1-80c5-99d1-fdbb71cc063e" class=""><strong>Example:</strong> <code>Domain Admins</code> has the <code>AdminTo</code> edge on <code>WS01</code>.</blockquote><p id="8a09d567-ea64-4e40-abb0-828b38a2e662" class="">The following is a list of the edges available for Active Directory in BloodHound:</p><table id="52c73a24-6769-46fe-a10a-ec619e40cf72" class="simple-table"><thead class="simple-table-header"><tr id="7d31f531-7447-461b-96c4-51bed3baf8c4"><th id="uIFn" class="simple-table-header-color simple-table-header" style="width:221.33333333333334px"></th><th id="e?fQ" class="simple-table-header-color simple-table-header" style="width:221.33333333333334px"><strong>List of Edges</strong></th><th id="OhM;" class="simple-table-header-color simple-table-header" style="width:221.33333333333334px"></th></tr></thead><tbody><tr id="ef137271-47c4-4912-95e7-ae89a23b131a"><td id="uIFn" class="" style="width:221.33333333333334px"><a href="https://bloodhound.readthedocs.io/en/latest/data-analysis/edges.html#adminto">AdminTo</a></td><td id="e?fQ" class="" style="width:221.33333333333334px"><a href="https://bloodhound.readthedocs.io/en/latest/data-analysis/edges.html#adminto">MemberOf</a></td><td id="OhM;" class="" style="width:221.33333333333334px"><a href="https://bloodhound.readthedocs.io/en/latest/data-analysis/edges.html#hassession">HasSession</a></td></tr><tr id="3a9aade5-3bd3-467a-a9dc-228041a57fd7"><td id="uIFn" class="" style="width:221.33333333333334px"><a href="https://bloodhound.readthedocs.io/en/latest/data-analysis/edges.html#forcechangepassword">ForceChangePassword</a></td><td id="e?fQ" class="" style="width:221.33333333333334px"><a href="https://bloodhound.readthedocs.io/en/latest/data-analysis/edges.html#addmembers">AddMembers</a></td><td id="OhM;" class="" style="width:221.33333333333334px"><a href="https://bloodhound.readthedocs.io/en/latest/data-analysis/edges.html#addself">AddSelf</a></td></tr><tr id="26462204-7486-4155-9a9b-4fc7434313f8"><td id="uIFn" class="" style="width:221.33333333333334px"><a href="https://bloodhound.readthedocs.io/en/latest/data-analysis/edges.html#canrdp">CanRDP</a></td><td id="e?fQ" class="" style="width:221.33333333333334px"><a href="https://bloodhound.readthedocs.io/en/latest/data-analysis/edges.html#canrdp">CanPSRemote</a></td><td id="OhM;" class="" style="width:221.33333333333334px"><a href="https://bloodhound.readthedocs.io/en/latest/data-analysis/edges.html#canrdp">ExecuteDCOM</a></td></tr><tr id="a6a20134-f21f-4a39-8af3-e71f6671cc46"><td id="uIFn" class="" style="width:221.33333333333334px"><a href="https://bloodhound.readthedocs.io/en/latest/data-analysis/edges.html#canrdp">SQLAdmin</a></td><td id="e?fQ" class="" style="width:221.33333333333334px"><a href="https://bloodhound.readthedocs.io/en/latest/data-analysis/edges.html#allowedtodelegate">AllowedToDelegate</a></td><td id="OhM;" class="" style="width:221.33333333333334px"><a href="https://bloodhound.readthedocs.io/en/latest/data-analysis/edges.html#allowedtodelegate">DCSync</a></td></tr><tr id="20b4341a-f522-4e68-9401-09ab6d9d352b"><td id="uIFn" class="" style="width:221.33333333333334px"><a href="https://bloodhound.readthedocs.io/en/latest/data-analysis/edges.html#allowedtodelegate">GetChanges/GetChangesAll</a></td><td id="e?fQ" class="" style="width:221.33333333333334px"><a href="https://bloodhound.readthedocs.io/en/latest/data-analysis/edges.html#allowedtodelegate">GenericAll</a></td><td id="OhM;" class="" style="width:221.33333333333334px"><a href="https://bloodhound.readthedocs.io/en/latest/data-analysis/edges.html#allowedtodelegate">WriteDacl</a></td></tr><tr id="506e492a-cc66-4362-a564-df60c163d817"><td id="uIFn" class="" style="width:221.33333333333334px"><a href="https://bloodhound.readthedocs.io/en/latest/data-analysis/edges.html#allowedtodelegate">GenericWrite</a></td><td id="e?fQ" class="" style="width:221.33333333333334px"><a href="https://bloodhound.readthedocs.io/en/latest/data-analysis/edges.html#allowedtodelegate">WriteOwner</a></td><td id="OhM;" class="" style="width:221.33333333333334px"><a href="https://bloodhound.readthedocs.io/en/latest/data-analysis/edges.html#allowedtodelegate">WriteSPN</a></td></tr><tr id="4250ea46-b520-4bba-be53-4e778ea078de"><td id="uIFn" class="" style="width:221.33333333333334px"><a href="https://bloodhound.readthedocs.io/en/latest/data-analysis/edges.html#allowedtodelegate">Owns</a></td><td id="e?fQ" class="" style="width:221.33333333333334px"><a href="https://bloodhound.readthedocs.io/en/latest/data-analysis/edges.html#allowedtodelegate">AddKeyCredentialLink</a></td><td id="OhM;" class="" style="width:221.33333333333334px"><a href="https://bloodhound.readthedocs.io/en/latest/data-analysis/edges.html#allowedtodelegate">ReadLAPSPassword</a></td></tr><tr id="4aea1acd-135f-47e8-ad2c-e2a7fdc05af4"><td id="uIFn" class="" style="width:221.33333333333334px"><a href="https://bloodhound.readthedocs.io/en/latest/data-analysis/edges.html#allowedtodelegate">ReadGMSAPassword</a></td><td id="e?fQ" class="" style="width:221.33333333333334px"><a href="https://bloodhound.readthedocs.io/en/latest/data-analysis/edges.html#allowedtodelegate">Contains</a></td><td id="OhM;" class="" style="width:221.33333333333334px"><a href="https://bloodhound.readthedocs.io/en/latest/data-analysis/edges.html#allowedtodelegate">AllExtendedRights</a></td></tr><tr id="1069c064-9ab6-4a39-926d-d2b8a6630e34"><td id="uIFn" class="" style="width:221.33333333333334px"><a href="https://bloodhound.readthedocs.io/en/latest/data-analysis/edges.html#allowedtodelegate">GPLink</a></td><td id="e?fQ" class="" style="width:221.33333333333334px"><a href="https://bloodhound.readthedocs.io/en/latest/data-analysis/edges.html#allowedtodelegate">AllowedToAct</a></td><td id="OhM;" class="" style="width:221.33333333333334px"><a href="https://bloodhound.readthedocs.io/en/latest/data-analysis/edges.html#allowedtodelegate">AddAllowedToAct</a></td></tr><tr id="ddcffe44-dbf7-44e4-9627-004173f30e09"><td id="uIFn" class="" style="width:221.33333333333334px"><a href="https://bloodhound.readthedocs.io/en/latest/data-analysis/edges.html#allowedtodelegate">TrustedBy</a></td><td id="e?fQ" class="" style="width:221.33333333333334px"><a href="https://bloodhound.readthedocs.io/en/latest/data-analysis/edges.html#allowedtodelegate">SyncLAPSPassword</a></td><td id="OhM;" class="" style="width:221.33333333333334px"><a href="https://dirkjanm.io/active-directory-forest-trusts-part-one-how-does-sid-filtering-work/">HasSIDHistory</a></td></tr><tr id="d7a67c64-bc97-47d0-b196-fb93f7befe29"><td id="uIFn" class="" style="width:221.33333333333334px"><a href="https://dirkjanm.io/abusing-forgotten-permissions-on-precreated-computer-objects-in-active-directory/">WriteAccountRestrictions</a></td><td id="e?fQ" class="" style="width:221.33333333333334px"></td><td id="OhM;" class="" style="width:221.33333333333334px"></td></tr></tbody></table><p id="1e7ba935-d2a1-8029-9ae2-c88712e9b4cc" class=""><strong>Abusing a edge</strong></p><p id="1e7ba935-d2a1-8089-92a3-fd31ea6f9ad4" class="">An edge will allow us to move from one object to another</p><p id="1e7ba935-d2a1-802b-889b-f3feeaf36f7b" class="">If we don&#x27;t know how to abuse an edge, we can right-click the edge and see the help provided in BloodHound.</p><figure id="1e7ba935-d2a1-8078-978b-efe23f0cbfa4" class="image"><a href="Bloodhound/edge_abuse.gif"><img style="width:682px" src="Bloodhound/edge_abuse.gif"/></a></figure><p id="1e7ba935-d2a1-804f-a680-d8041e354cd9" class="">Example of how useful using “ForceChangePassword”:</p><figure id="1e7ba935-d2a1-80a8-a9cc-c06cb85d6349" class="image"><a href="Bloodhound/image%2010.png"><img style="width:681.9921875px" src="Bloodhound/image%2010.png"/></a></figure><p id="1e7ba935-d2a1-80ee-9483-fe91dbdc46b0" class="">
+</p></div></details><details open=""><summary style="font-weight:600;font-size:1.5em;line-height:1.3;margin:0">Analyzing Bloodhound Data</summary><div class="indented"><table id="b436983e-210d-4750-9781-4cf591e9bfce" class="simple-table"><tbody><tr id="5379ea58-92a6-4dd9-8bfd-ff2b9759f6f0"><td id="eh=_" class=""><strong>Query</strong></td><td id="j=Ho" class="" style="width:466px"><strong>Result</strong></td></tr><tr id="9e24011b-34d4-419c-9c13-c30a023b2085"><td id="eh=_" class=""><code>Find Principals with DCSync Rights</code></td><td id="j=Ho" class="" style="width:466px">Find accounts that can perform the <a href="https://adsecurity.org/?p=1729">DCSync</a> attack, which will be covered in a later module.</td></tr><tr id="5cdf19ce-19ac-48ff-ab0f-3c544babb0c9"><td id="eh=_" class=""><code>Users with Foreign Domain Group Membership</code></td><td id="j=Ho" class="" style="width:466px">Find users that belong to groups in other domains. This can help mount cross-trust attacks.</td></tr><tr id="eae4e972-f596-4199-beb7-3bc60b87d9c6"><td id="eh=_" class=""><code>Groups with Foreign Domain Group Membership</code></td><td id="j=Ho" class="" style="width:466px">Find groups that are part of groups in other domains. This can help mount cross-trust attacks.</td></tr><tr id="da07b19c-87cb-4a86-bd26-319b41ed9b4e"><td id="eh=_" class=""><code>Map Domain Trusts</code></td><td id="j=Ho" class="" style="width:466px">Find all trust relationships with the current domain.</td></tr><tr id="226dd5c4-0d17-4228-96d3-a85f96ecfec1"><td id="eh=_" class=""><code>Shortest Paths to Unconstrained Delegation Systems</code></td><td id="j=Ho" class="" style="width:466px">Find the shortest path to hosts with <a href="https://adsecurity.org/?p=1667">Unconstrained Delegation</a>.</td></tr><tr id="412bc94d-8010-4bad-98b3-bbed18b1c3dd"><td id="eh=_" class=""><code>Shortest Paths from Kerberoastable Users</code></td><td id="j=Ho" class="" style="width:466px">Show the shortest path to Domain Admins by selecting from all users in a dropdown that can be subjected to a <a href="https://attack.mitre.org/techniques/T1558/003/">Kerberoasting</a> attack.</td></tr><tr id="967e5e39-9f3e-477c-9c70-46d098856a04"><td id="eh=_" class=""><code>Shortest Path from Owned Principals</code></td><td id="j=Ho" class="" style="width:466px">If we right-click a node and select <code>Mark user as owned</code> or <code>Mark computer as owned</code>, we can then run this query to see how far we can go from any users/computers that we have marked as &quot;owned&quot;. This can be very useful for mounting further attacks.</td></tr><tr id="4d5d0d66-3d7c-42a6-a428-093db5adbaac"><td id="eh=_" class=""><code>Shortest Paths to Domain Admins from Owned Principals</code></td><td id="j=Ho" class="" style="width:466px">Find the shortest path to Domain Admin access from any user or computer marked as &quot;owned&quot;.</td></tr><tr id="14e4c5b7-916d-4a1e-ac48-e78b8c88500d"><td id="eh=_" class=""><code>Shortest Paths to High-Value Targets</code></td><td id="j=Ho" class="" style="width:466px">This will give us the shortest path to any objects that <code>BloodHound</code> already considers a high-value target. It can also be used to find paths to any objects that we right-click on and select Mark X as High Value.</td></tr></tbody></table><p id="1e7ba935-d2a1-8094-85b7-cd1dfe90ed54" class=""><strong>Owned Principals</strong></p><p id="1e7ba935-d2a1-80be-a5dc-fdac57315abf" class=""><code>Mark as Owned</code> feature allows a user to mark a node as owned or controlled (Right click node and mark)</p><p id="1e7ba935-d2a1-80be-9c8a-c2026dc9087f" class="">
+</p><p id="1e7ba935-d2a1-808e-bb3a-cf2af6d66ba4" class="">go to the Analysis tab and select <code>Shortest Path from Owned Principals</code> and we can see what activities to perform with the users, group or teams that we have compromised.</p><figure id="1e7ba935-d2a1-80ac-943b-ff551dd7eab1" class="image"><a href="Bloodhound/image%2011.png"><img style="width:681.9765625px" src="Bloodhound/image%2011.png"/></a></figure><details open=""><summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0">Some practical example1:</summary><div class="indented"><figure id="1e7ba935-d2a1-8062-8c16-cf329204987d" class="image"><a href="Bloodhound/image%2012.png"><img style="width:2344px" src="Bloodhound/image%2012.png"/></a></figure><p id="1e7ba935-d2a1-8014-bef5-c3b7ff21b7f5" class="">From here we can see that enterprise admins group can perform a DCSync attack against the domain, mix of pathfinder and searchbar</p></div></details><details open=""><summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0">Example2:</summary><div class="indented"><figure id="1e7ba935-d2a1-8038-88cb-e98fec310a7e" class="image"><a href="Bloodhound/image%2013.png"><img style="width:2694px" src="Bloodhound/image%2013.png"/></a></figure><p id="1e7ba935-d2a1-80a3-8203-fb508ae8efe6" class="">Clicking one user account, then Sessions we can find out which computer they are connected to, so we know where to go</p></div></details></div></details><details open=""><summary style="font-weight:600;font-size:1.5em;line-height:1.3;margin:0">Cypher Queries</summary><div class="indented"><p id="1e7ba935-d2a1-803c-b04b-f11403d2d9db" class="">Return all users</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1e7ba935-d2a1-80c6-b27e-f73d78b31aef" class="code"><code class="language-Plain Text">MATCH (u:User) RETURN u</code></pre><p id="1e7ba935-d2a1-80dc-b05a-d164e31e3f12" class="">return user “peter”</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1e7ba935-d2a1-802a-b576-fe2530c655aa" class="code"><code class="language-Plain Text">MATCH (u:User {name:&quot;PETER@INLANEFREIGHT.HTB&quot;}) RETURN u
+
+OR
+
+MATCH (u:User) WHERE u.name = &quot;PETER@INLANEFREIGHT.HTB&quot; RETURN u</code></pre><p id="1e7ba935-d2a1-80f9-bc59-ff876dd1485d" class="">query which group the user <code>peter</code> is <code>MemberOf</code> and save it to a variable named <code>peterGroups</code>.</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1e7ba935-d2a1-80cb-9a6e-dfe695b60d9c" class="code"><code class="language-Plain Text">MATCH (u:User {name:&quot;PETER@INLANEFREIGHT.HTB&quot;})-[r:MemberOf]-&gt;(peterGroups) 
+RETURN peterGroups</code></pre><p id="1e7ba935-d2a1-8091-845c-dfd61871cf58" class=""><strong>Cypher Attributes - Definitions</strong></p><figure id="1e7ba935-d2a1-80a8-a9e0-c713c430f6fb" class="image"><a href="Bloodhound/image%2014.png"><img style="width:2576px" src="Bloodhound/image%2014.png"/></a></figure><p id="1e7ba935-d2a1-808d-af33-e6f6b3f8a3cb" class="">
+</p><table id="76ba397a-7ea9-40f8-9b34-4142c6e83457" class="simple-table"><tbody><tr id="45efd46b-68e0-4bb6-9e4c-585577f0c271"><td id="qkRo" class=""><strong>Attribute</strong></td><td id="ezMK" class="" style="width:551px"><strong>Definition</strong></td></tr><tr id="0f3ae4f1-c5a7-4344-90f8-6fae008b1a84"><td id="qkRo" class=""><code>Nodes</code></td><td id="ezMK" class="" style="width:551px">Represented with parentheses around the corresponding attributes and information.</td></tr><tr id="2b45d4b6-035d-495e-b7ee-5bab10529c57"><td id="qkRo" class=""><code>Variable</code></td><td id="ezMK" class="" style="width:551px">A placeholder represents a node or a relationship in a query. For example, in the query <code>MATCH (n:User) RETURN n</code>, the variable <code>n</code> represents the node labeled <code>User</code>.</td></tr><tr id="5ae0ab77-f4c4-4f03-bb83-213e78649058"><td id="qkRo" class=""><code>Relationships</code></td><td id="ezMK" class="" style="width:551px">Depicted by dashes and arrows, with the relationship type in brackets. These show the direction of the relationship. Ex: <code>-&gt;</code> shows a relationship going one way, while <code>-</code> depicts a relationship going in both directions. In <code>BloodHound</code>, relationships are usually shown toward other privileges.</td></tr><tr id="df57105c-d8d9-4174-a647-e8f4d9cb3997"><td id="qkRo" class=""><code>Label</code></td><td id="ezMK" class="" style="width:551px">Used to group nodes based on their properties or characteristics. Labels are denoted by a colon <code>:</code> and are added to a variable. For example, in the query <code>MATCH (n:User) RETURN n</code>, the label <code>User</code> is used to group nodes with a user&#x27;s characteristics.</td></tr><tr id="c3de6b7a-b92c-4542-b1f8-35b301c3f591"><td id="qkRo" class=""><code>Property</code></td><td id="ezMK" class="" style="width:551px">Used to store additional information about a node or a relationship and is denoted by a curly brace <code>{}</code>. For example, in the query <code>MATCH (n:User {name:&quot;PETER@INLANEFREIGHT.HTB&quot;, enabled:TRUE}) RETURN n</code>, the properties <code>name</code> and <code>enabled</code> are associated with the node <code>n</code> to store additional information about the user.</td></tr></tbody></table><p id="1e7ba935-d2a1-8047-8d1a-f43ff7fe021f" class="">More Examples:</p><details open=""><summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0"><strong>Cypher query to return the user peter MemberOf relationship</strong></summary><div class="indented"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1e7ba935-d2a1-8034-9a71-d3198ddd7dfb" class="code"><code class="language-Plain Text">MATCH p=((n:User {name:&quot;PETER@INLANEFREIGHT.HTB&quot;})-[r:MemberOf]-&gt;(g:Group)) 
+RETURN p</code></pre><p id="1e7ba935-d2a1-8019-9aab-c7c63d4c5361" class="">
+</p></div></details><p id="1e7ba935-d2a1-809d-9f97-e9903299c1dc" class="">Cypher uses keywords for specifying patterns, filtering, and returning results. The most common keywords are <code>MATCH</code>, <code>WHERE</code>, and <code>RETURN</code>.</p><table id="0ab7ee09-aa64-4db6-8562-1f3952e576c9" class="simple-table"><tbody><tr id="574287fe-341a-4140-9e99-b472a213b610"><td id="qoFC" class=""><strong>Keyword</strong></td><td id="oJ}x" class="" style="width:586px"><strong>Description</strong></td></tr><tr id="770e69b1-4747-4a38-b230-aed675508560"><td id="qoFC" class=""><code>MATCH</code></td><td id="oJ}x" class="" style="width:586px">Used before describing the search pattern for finding one or more nodes or relationships.</td></tr><tr id="b2dbd0d1-05c2-49f2-bcf6-70f3faa8795e"><td id="qoFC" class=""><code>WHERE</code></td><td id="oJ}x" class="" style="width:586px">Used to add more constraints to specific patterns or filter out unwanted patterns.</td></tr><tr id="27e5e2bf-ced4-4ffc-965a-315483887ac4"><td id="qoFC" class=""><code>RETURN</code></td><td id="oJ}x" class="" style="width:586px">Used to specify the results format and organizes the resulting data. We can return results with specific properties, lists, ordering, etc.</td></tr></tbody></table><details open=""><summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0"><strong>Return Peter&#x27;s MemberOf relationships</strong></summary><div class="indented"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="ff4d4d92-63e3-43c1-b312-26c718fd393d" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">MATCH p=((u:User {name:&quot;PETER@INLANEFREIGHT.HTB&quot;})-[r:MemberOf*1..]-&gt;(g:Group))
+RETURN p</code></pre><p id="4aac51d1-10e6-41a1-b036-a98c44ee4a1e" class="">Here we assign the variables <code>u</code> and <code>g</code> to User and Group, respectively, and tell <code>BloodHound</code> to find matching nodes using the <code>MemberOf</code> relationship (or edge). We are using something new, <code>1..*</code>, in this query. In this case, it indicates that the path can have a minimum depth of 1 and a maximum depth of any number. The <code>*</code> means that there is no upper limit on the depth of the path. This allows the query to match paths of any depth that start at a node with the label <code>User</code> and traverse through relationships of type <code>MemberOf</code> to reach a node with the label <code>Group</code>.</p><p id="4ea5ed9b-eca5-4d23-9209-3511c65f30f0" class="">We can also use a specific number instead of <code>*</code> to specify the maximum depth of the path. For example, <code>MATCH p=(n:User)-[r1:MemberOf*1..2]-&gt;(g:Group)</code> will match paths with a minimum depth of <code>1</code> and a maximum depth of <code>2</code>, meaning that the user must traverse through precisely one or two &quot;MemberOf&quot; relationships to reach the group node.</p><p id="a320aa9a-45e1-44bf-abd7-0209dab3c6c7" class="">Back to the query, the result is assigned to the variable <code>p</code> and will return the result of each path that matches the pattern we specified.</p></div></details><details open=""><summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0"><strong>Find a path where the first group&#x27;s name contains ITSECURITY</strong></summary><div class="indented"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1e7ba935-d2a1-805c-a101-ea818f424873" class="code"><code class="language-Plain Text">MATCH p=(n:User)-[r1:MemberOf*1..]-&gt;(g:Group)
+WHERE nodes(p)[1].name CONTAINS &#x27;ITSECURITY&#x27;
+RETURN p</code></pre><p id="8cb11c69-b79d-4a02-8cdd-4ee7e083c153" class="">We have two nodes in the first group, <code>Domain Users</code> and <code>ITSECURITY</code>. The part <code>nodes(p)[1].name</code> refers to the name property of the first node in the path <code>p</code> obtained from the variable <code>nodes(p)</code>. We use the <code>CONTAINS</code> keyword only to return the path where the first group&#x27;s name contains the substring <code>ITSECURITY</code>.</p><p id="1e7ba935-d2a1-8011-8ded-d55d44ea7516" class="">
+</p><p id="56641e3b-37b5-4454-a4a9-b0d24f9b92e7" class="">Instead of the <code>CONTAINS</code> keyword, we can also use the <code>=~</code> operator to check if a string matches a <code>regular expression</code>.</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1e7ba935-d2a1-8038-8ac7-d7e6a1d1b5e1" class="code"><code class="language-Plain Text">MATCH p=(n:User)-[r1:MemberOf*1..]-&gt;(g:Group)
+WHERE nodes(p)[1].name =~ &#x27;(?i)itsecurity.*&#x27;
+RETURN p</code></pre><p id="24a1e353-2962-4cd5-88d5-deadd7279433" class="">We used two elements of a regular expression <code>(?i)</code> tells the regular expression engine to ignore the case of the characters in the pattern, and <code>.*</code> to match any number of characters.</p><blockquote id="c3030142-3bb5-42ca-b529-e795297d5360" class=""><strong>Note:</strong> We can also use regular expressions in properties or any other element in a cypher query.</blockquote><p id="88c3a679-f12b-4ea4-be5f-d6ebf8304e69" class="">There are many other tricks we can use with the cypher query. We can find the cypher query cheat sheet <a href="https://neo4j.com/docs/cypher-cheat-sheet/current/">here</a>.</p></div></details><p id="1e7ba935-d2a1-8073-b6d0-c4d0414101ac" class="">The following query calculates the shortest paths to domain admins and is one we will use quite often to catch <code>low-hanging fruit</code>.</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1e7ba935-d2a1-8086-8e44-c50b5d8c0079" class="code"><code class="language-Plain Text">MATCH p=shortestPath((n)-[*1..]-&gt;(m:Group {name:&quot;DOMAIN ADMINS@INLANEFREIGHT.HTB&quot;})) 
+WHERE NOT n=m 
+RETURN p</code></pre><p id="1e7ba935-d2a1-8016-95df-cc64cd2b20a9" class="">
+</p></div></details><h2 id="1e7ba935-d2a1-8003-8d31-e1bea65c0095" class=""><strong>Misc Details</strong></h2><details open=""><summary style="font-weight:600;font-size:1.5em;line-height:1.3;margin:0">Search bar</summary><div class="indented"><p id="e55b14bb-22db-4e45-a4cf-a63769257c0e" class="">The search bar is one of the elements of BloodHound that we will use the most. We can search for specific objects by their name or type. If we click on a node we searched, its information will be displayed in the node info tab.</p><p id="c0f6fd82-6182-43db-badb-ad200d612dfd" class="">If we want to search for a specific type, we can prepend our search with node type, for example, <code>user:peter</code> or <code>group:domain</code>. Let&#x27;s see this in action:</p><figure id="1e7ba935-d2a1-80ca-9546-c3f77e345931" class="image"><a href="Bloodhound/bloodhound_search_example1.gif"><img style="width:682px" src="Bloodhound/bloodhound_search_example1.gif"/></a></figure><p id="f75fe825-ebdd-45c6-b544-397e35fd6d4f" class="">Here&#x27;s the complete list of node types we can prepend to our search:</p><p id="2f90705a-d1ec-4eb1-8c12-8edd3ebab3c3" class="">Active Directory<div class="indented"><ul id="8445d19e-6d88-49bc-88e7-2d0c70746dce" class="bulleted-list"><li style="list-style-type:disc">Group</li></ul><ul id="c5817746-e0da-40ac-8d09-ada8231444d4" class="bulleted-list"><li style="list-style-type:disc">Domain</li></ul><ul id="51e1ed7e-e55a-4301-ad75-297e852e1eb5" class="bulleted-list"><li style="list-style-type:disc">Computer</li></ul><ul id="93a21127-15a8-40ea-90b8-5ed9a26d59fe" class="bulleted-list"><li style="list-style-type:disc">User</li></ul><ul id="c7fb9b84-f7a4-4099-9e8a-f940492b1bff" class="bulleted-list"><li style="list-style-type:disc">OU</li></ul><ul id="1965e425-4bd3-4758-b9d3-2f76d0af15da" class="bulleted-list"><li style="list-style-type:disc">GPO</li></ul><ul id="c3344b4b-7a2f-4339-bba3-8dc2f6571e81" class="bulleted-list"><li style="list-style-type:disc">Container</li></ul></div></p><p id="a8f242a3-0c56-45d2-89ff-0a6000fe7821" class="">Azure<div class="indented"><ul id="e6d06f31-ea42-4cb3-b87c-2cd2af9e5597" class="bulleted-list"><li style="list-style-type:disc">AZApp</li></ul><ul id="6a7ef7b0-2880-4301-8082-ed2a22fcc8ea" class="bulleted-list"><li style="list-style-type:disc">AZRole</li></ul><ul id="0f2c016d-8e3c-4ecb-8281-26088f0cb91f" class="bulleted-list"><li style="list-style-type:disc">AZDevice</li></ul><ul id="3f8ee2c3-93d5-43dc-9137-505e6d476907" class="bulleted-list"><li style="list-style-type:disc">AZGroup</li></ul><ul id="fa776fd1-499f-45ff-9244-9a90dd82d35a" class="bulleted-list"><li style="list-style-type:disc">AZKeyVault</li></ul><ul id="15f5c838-9ca5-4c89-ba1c-1f7aec5067c4" class="bulleted-list"><li style="list-style-type:disc">AZManagementGroup</li></ul><ul id="ad187192-eb81-44cf-86b9-d3cae3fa26b8" class="bulleted-list"><li style="list-style-type:disc">AZResourceGroup</li></ul><ul id="026f9301-8906-4e74-9c31-c928fc8bacba" class="bulleted-list"><li style="list-style-type:disc">AZServicePrincipal</li></ul><ul id="28e19344-9779-488a-9720-a6f13ed7f429" class="bulleted-list"><li style="list-style-type:disc">AZSubscription</li></ul><ul id="5d6d1d1e-dbcc-465b-b719-81d22ee5b6ad" class="bulleted-list"><li style="list-style-type:disc">AZTenant</li></ul><ul id="0964c0af-bd63-4638-81bc-aaee029e5342" class="bulleted-list"><li style="list-style-type:disc">AZUser</li></ul><ul id="2957a2de-e012-4365-97d2-de2304cd042b" class="bulleted-list"><li style="list-style-type:disc">AZVM</li></ul></div></p></div></details><details open=""><summary style="font-weight:600;font-size:1.5em;line-height:1.3;margin:0">PathFinding</summary><div class="indented"><p id="39e194f7-aa04-4337-a135-bfc53b786fe4" class="">We can use it to find an attack path between two given nodes.</p><p id="4af675c0-e8cd-4fdf-8250-b486aa13ed2a" class="">For example, we can look for an attack path from <code>ryan</code> to <code>Domain Admins</code>. The path result is:</p><p id="991cde3e-e63e-4855-9d0b-e30c03f1da77" class=""><code>Ryan &gt; Mark &gt; HelpDesk &gt; ITSecurity &gt; Domain Admins</code></p><p id="78baf96a-4596-495d-8d89-3b5d510c0f72" class="">This path contains the edge <code>ForceChangePassword</code>; let&#x27;s say we want to avoid changing users&#x27; passwords. We can use the filter option, uncheck <code>ForceChangePassword</code>, and search for the path without this edge. The result is:</p><p id="1d22f650-2799-40a0-a40d-19e1b2d08e1b" class=""><code>Ryan &gt; AddSelf &gt; Tech_Support &gt; Testinggroup &gt; HelpDesk &gt; ITSecurity &gt; Domain Admins</code></p><figure id="1e7ba935-d2a1-8014-8a1b-fc9bd9f48a5b" class="image"><a href="Bloodhound/pathfinding.gif"><img style="width:682px" src="Bloodhound/pathfinding.gif"/></a></figure><p id="1e7ba935-d2a1-80aa-b0fc-e0f00030cf07" class="">
+</p></div></details><details open=""><summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0">Settings</summary><div class="indented"><ul id="6800ee6c-dc3a-4cbf-b734-e5332be4b95e" class="bulleted-list"><li style="list-style-type:disc"><code>Settings</code>: Allows us to adjust the display settings for nodes and edges, enabling query to debug mode, low detail mode, and dark mode.<ul id="549dd408-2ca2-4f92-a2ac-ac49d8b78767" class="bulleted-list"><li style="list-style-type:circle"><code>Node Collapse Threshold</code>: Collapse nodes at the end of paths that only have one relationship. 0 to Disable, Default 5.</li></ul><ul id="158f2688-ca37-4907-aab1-b1391be620b2" class="bulleted-list"><li style="list-style-type:circle"><code>Edge Label Display</code>: When to display edge labels. If Always Display, edges such as MemberOf, Contains, etc., will always be said.</li></ul><ul id="57bd8fb8-9d21-4aa4-b05b-c50819fd17c1" class="bulleted-list"><li style="list-style-type:circle"><code>Node Label Display</code>: When to display node labels. If Always Display, node names, user names, computer names, etc., will always be displayed.</li></ul><ul id="3db9459c-bf96-4bca-88d6-c4c24af079f8" class="bulleted-list"><li style="list-style-type:circle"><code>Query Debug Mode</code>: Raw queries will appear in Raw Query Box. We will discuss more on this in the <a href="https://academy.hackthebox.com/module/69/section/2081">Cypher Queries</a> section.</li></ul><ul id="8cb76c5a-9df9-4c43-8815-ed96b0651ff8" class="bulleted-list"><li style="list-style-type:circle"><code>Low Detail Mode</code>: Graphic adjustments to improve performance.</li></ul><ul id="01e83b4b-65db-41ed-ab75-1b0ccaddbf16" class="bulleted-list"><li style="list-style-type:circle"><code>Dark Mode</code>: Enable Dark mode for the interface.</li></ul></li></ul><figure id="1e7ba935-d2a1-80ef-a8fe-e464b1bd98f9" class="image"><a href="Bloodhound/image%2015.png"><img style="width:578px" src="Bloodhound/image%2015.png"/></a></figure></div></details><details open=""><summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0">Shortcuts</summary><div class="indented"><p id="ffb85895-633e-46fc-a169-d13ed5411673" class="">There are four (4) shortcuts that we can take advantage from:</p><table id="eb0c1078-2675-4614-a39e-a5544c07ad71" class="simple-table"><tbody><tr id="2857b8a5-d85c-4152-b8f5-f9d29ae20781"><td id="aoAB" class=""><strong>Shortcut</strong></td><td id="fGU}" class="" style="width:582px"><strong>Description</strong></td></tr><tr id="2e09e197-b71a-49a4-bc93-6b96227e896b"><td id="aoAB" class=""><code>CTRL</code></td><td id="fGU}" class="" style="width:582px">Pressing CTRL will cycle through the three different node label display settings - default, always show, always hide.</td></tr><tr id="c314a880-850e-4be2-8f9e-be2d5cbf1187"><td id="aoAB" class=""><code>Spacebar</code></td><td id="fGU}" class="" style="width:582px">Pressing the spacebar will bring up the spotlight window, which lists all currently drawn nodes. Click an item in the list, and the GUI will zoom into and briefly highlight that node.</td></tr><tr id="07b3841f-cf3f-431c-bb1a-51983d468478"><td id="aoAB" class=""><code>Backspace</code></td><td id="fGU}" class="" style="width:582px">Pressing backspace will return to the previous graph result rendering. This is the same functionality as clicking the Back button in the search bar.</td></tr><tr id="ef824174-6aff-4105-9c91-3f5f4ff0ca23"><td id="aoAB" class=""><code>S</code></td><td id="fGU}" class="" style="width:582px">Pressing the letter s will toggle the expansion or collapse of the information panel below the search bar. This is the same functionality as clicking the More Info button in the search bar.</td></tr></tbody></table></div></details><p id="1e7ba935-d2a1-80b2-a18f-dcef4f6c2c1f" class="">
+</p><h2 id="1e7ba935-d2a1-80ce-b0ec-f9bd532dfc1c" class="">Cheatsheets</h2><p id="1e7ba935-d2a1-800d-a23d-e5125aaac572" class=""><br/>• <br/><a href="https://gist.github.com/jeffmcjunkin/7b4a67bb7dd0cfbfbd83768f3aa6eb12">https://gist.github.com/jeffmcjunkin/7b4a67bb7dd0cfbfbd83768f3aa6eb12</a><br/>• <br/><a href="https://hausec.com/2019/09/09/bloodhound-cypher-cheatsheet/">https://hausec.com/2019/09/09/bloodhound-cypher-cheatsheet/</a></p><p id="1e7ba935-d2a1-80bb-b472-fbd5d75050e1" class="">
+</p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
